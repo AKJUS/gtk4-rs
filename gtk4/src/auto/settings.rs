@@ -404,11 +404,15 @@ impl Settings {
         )
     }
 
+    #[cfg(feature = "v4_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v4_24")))]
     #[doc(alias = "gtk-keyboard-focus-visible-timeout")]
     pub fn gtk_keyboard_focus_visible_timeout(&self) -> i32 {
         ObjectExt::property(self, "gtk-keyboard-focus-visible-timeout")
     }
 
+    #[cfg(feature = "v4_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v4_24")))]
     #[doc(alias = "gtk-keyboard-focus-visible-timeout")]
     pub fn set_gtk_keyboard_focus_visible_timeout(&self, gtk_keyboard_focus_visible_timeout: i32) {
         ObjectExt::set_property(
@@ -1592,6 +1596,8 @@ impl Settings {
         }
     }
 
+    #[cfg(feature = "v4_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v4_24")))]
     #[doc(alias = "gtk-keyboard-focus-visible-timeout")]
     pub fn connect_gtk_keyboard_focus_visible_timeout_notify<F: Fn(&Self) + 'static>(
         &self,
@@ -2585,6 +2591,8 @@ impl SettingsBuilder {
         }
     }
 
+    #[cfg(feature = "v4_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v4_24")))]
     pub fn gtk_keyboard_focus_visible_timeout(
         self,
         gtk_keyboard_focus_visible_timeout: i32,
