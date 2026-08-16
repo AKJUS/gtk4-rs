@@ -2,6 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+#[cfg(feature = "v4_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v4_24")))]
+use crate::FrameResult;
 use crate::ffi;
 use glib::translate::*;
 
@@ -51,5 +54,13 @@ impl FrameTimings {
     #[doc(alias = "get_refresh_interval")]
     pub fn refresh_interval(&self) -> i64 {
         unsafe { ffi::gdk_frame_timings_get_refresh_interval(self.to_glib_none().0) }
+    }
+
+    #[cfg(feature = "v4_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v4_24")))]
+    #[doc(alias = "gdk_frame_timings_get_result")]
+    #[doc(alias = "get_result")]
+    pub fn result(&self) -> FrameResult {
+        unsafe { from_glib(ffi::gdk_frame_timings_get_result(self.to_glib_none().0)) }
     }
 }
