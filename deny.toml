@@ -27,7 +27,6 @@ wildcards = "allow"
 highlight = "all"
 skip = [
     {name = "syn", version = "2.0.119"},
-    {name = "system-deps", version = "7"},
 ]
 
 [sources]
