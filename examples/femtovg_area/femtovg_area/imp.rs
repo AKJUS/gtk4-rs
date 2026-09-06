@@ -142,8 +142,7 @@ impl FemtoVGArea {
         let widget = self.obj();
         widget.attach_buffers();
 
-        static LOAD_FN: fn(&str) -> *const std::ffi::c_void =
-            |s| crate::get_proc_address(s);
+        static LOAD_FN: fn(&str) -> *const std::ffi::c_void = |s| crate::get_proc_address(s);
         // SAFETY: Need to get the framebuffer id that gtk expects us to draw into, so
         // femtovg knows which framebuffer to bind. This is safe as long as we
         // call attach_buffers beforehand. Also unbind it here just in case,

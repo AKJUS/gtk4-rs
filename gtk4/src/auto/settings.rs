@@ -44,6 +44,20 @@ impl Settings {
         }
     }
 
+    #[cfg(feature = "v4_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v4_24")))]
+    #[doc(alias = "gtk-accent-color")]
+    pub fn gtk_accent_color(&self) -> Option<gdk::RGBA> {
+        ObjectExt::property(self, "gtk-accent-color")
+    }
+
+    #[cfg(feature = "v4_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v4_24")))]
+    #[doc(alias = "gtk-accent-color")]
+    pub fn set_gtk_accent_color(&self, gtk_accent_color: Option<&gdk::RGBA>) {
+        ObjectExt::set_property(self, "gtk-accent-color", gtk_accent_color)
+    }
+
     #[doc(alias = "gtk-alternative-button-order")]
     pub fn is_gtk_alternative_button_order(&self) -> bool {
         ObjectExt::property(self, "gtk-alternative-button-order")
@@ -692,6 +706,33 @@ impl Settings {
             from_glib_none(ffi::gtk_settings_get_for_display(
                 display.as_ref().to_glib_none().0,
             ))
+        }
+    }
+
+    #[cfg(feature = "v4_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v4_24")))]
+    #[doc(alias = "gtk-accent-color")]
+    pub fn connect_gtk_accent_color_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_gtk_accent_color_trampoline<F: Fn(&Settings) + 'static>(
+            this: *mut ffi::GtkSettings,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
+        ) {
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
+        }
+        unsafe {
+            let f: Box_<F> = Box_::new(f);
+            connect_raw(
+                self.as_ptr() as *mut _,
+                c"notify::gtk-accent-color".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
+                    notify_gtk_accent_color_trampoline::<F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
         }
     }
 
@@ -2328,6 +2369,14 @@ impl SettingsBuilder {
     fn new() -> Self {
         Self {
             builder: glib::object::Object::builder(),
+        }
+    }
+
+    #[cfg(feature = "v4_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v4_24")))]
+    pub fn gtk_accent_color(self, gtk_accent_color: &gdk::RGBA) -> Self {
+        Self {
+            builder: self.builder.property("gtk-accent-color", gtk_accent_color),
         }
     }
 
